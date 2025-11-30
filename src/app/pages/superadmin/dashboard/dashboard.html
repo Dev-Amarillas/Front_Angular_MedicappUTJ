@@ -35,40 +35,33 @@
 
   </div>
 
-  <!-- Accesos rápidos -->
-  <h2 class="section-title">Accesos Rápidos</h2>
+  <!-- Documentos PDF -->
+   
+  <!-- <h2 class="section-title">Justificantes Subidos</h2>
 
-  <div class="quick-links">
+<div class="docs-grid">
 
-    <a routerLink="/superadmin/alumnos" class="quick-card">
-      <h3>Gestión de Alumnos</h3>
-      <p>Consulta, registra y administra perfiles estudiantiles.</p>
-    </a>
+  <div 
+    class="doc-card" 
+    *ngFor="let doc of documentos"
+    (click)="abrirDocumento(doc)"
+  >
+    <div class="pdf-icon">
+      <img src="icono_pdf.png" alt="PDF" />
+    </div>
 
-    <a routerLink="/superadmin/admin" class="quick-card">
-      <h3>Administradores</h3>
-      <p>Control de cuentas administrativas del sistema.</p>
-    </a>
-
-    <a routerLink="/superadmin/medicos" class="quick-card">
-      <h3>Personal Médico</h3>
-      <p>Información y registro del equipo clínico institucional.</p>
-    </a>
-
-    <a routerLink="/superadmin/tutores" class="quick-card">
-      <h3>Tutores Académicos</h3>
-      <p>Control y actualización de los tutores adscritos.</p>
-    </a>
-
+    <p class="doc-name">{{ doc.nombre }}</p>
   </div>
+
+</div> -->
+
 
   <!-- Información institucional -->
   <div class="info-box">
-    <h2 class="info-title">Administración del Ecosistema Médico UTJ</h2>
+    <h2 class="info-title">Administración de MédicappUTJ</h2>
     <p class="info-text">
       Este panel permite gestionar la estructura operativa del sistema de salud 
-      estudiantil, garantizando un entorno seguro, confiable y orientado al bienestar. 
-      Desde aquí se centraliza la administración de usuarios, personal médico, alertas, 
+      estudiantil, desde aquí se centraliza la administración de alumnos, personal médico, tutores, administradores, 
       y recursos clínicos esenciales para el funcionamiento institucional.
     </p>
   </div>

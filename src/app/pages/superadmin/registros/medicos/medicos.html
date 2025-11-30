@@ -1,8 +1,36 @@
-<h2>Registro de Médicos</h2>
+<div class="medicos-wrapper">
 
-<form (ngSubmit)="guardar()">
-  <input type="text" placeholder="Nombre" [(ngModel)]="medico.nombre" name="nombre"><br>
-  <input type="text" placeholder="Especialidad" [(ngModel)]="medico.especialidad" name="especialidad"><br>
+  <div class="medicos-card">
+    <h2 class="medicos-title">Registro de Médicos</h2>
+    <p class="medicos-subtitle">Agrega profesionales de salud al sistema</p>
 
-  <button class="btn">Guardar</button>
-</form>
+    <form (ngSubmit)="guardar()">
+
+      <div class="form-group">
+        <label>Nombre del Médico</label>
+        <input 
+          type="text" 
+          class="form-control"
+          [(ngModel)]="medico.nombre" 
+          name="nombre"
+          placeholder="Ej. Juan Pérez"
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Especialidad</label>
+        <input 
+          type="text" 
+          class="form-control"
+          [(ngModel)]="medico.especialidad" 
+          name="especialidad"
+          placeholder="Ej. Medicina General"
+        >
+      </div>
+
+      <button class="btn-submit">Guardar Médico</button>
+    </form>
+
+  </div>
+
+</div>

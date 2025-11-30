@@ -27,11 +27,11 @@
 }
 
 .stat-card {
-  background: white;
+  background: rgb(221, 221, 240);
   border-radius: 14px;
   padding: 22px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-  border: 1px solid #e3eef7;
+  border: 1px solid #b6b6b6;
   transition: .25s ease;
 }
 
@@ -76,12 +76,12 @@
 
 .quick-card {
   display: block;
-  background: linear-gradient(135deg, #f7fbff, #e6f2ff);
+  background: linear-gradient(135deg, #d8d8d8, #dbedff);
   border-radius: 14px;
   padding: 22px;
   text-decoration: none;
 
-  border: 1px solid #cdddec;
+  border: 1px solid #b6b6b6;
 
   transition: .28s ease;
 }
@@ -105,10 +105,10 @@
 
 /* Info institucional */
 .info-box {
-  background: white;
+  background: linear-gradient(135deg, #d8d8d8, #dbedff);
   border-radius: 14px;
   padding: 25px;
-  border: 1px solid #d8e7f4;
+  border: 1px solid #b6b6b6;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
@@ -129,4 +129,51 @@
 @keyframes fade {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Documentos*/
+
+.section-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #003a6c;
+  margin-bottom: 20px;
+  text-shadow: 0px 1px 1px rgba(0,0,0,0.15);
+}
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  padding: 10px;
+}
+
+.doc-card {
+  background: rgba(255,255,255,0.9);
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  transition: .25s ease;
+  border: 1px solid #cddcef;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+}
+
+.doc-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 18px rgba(0,0,0,0.15);
+}
+
+.doc-preview {
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  pointer-events: none; /* para evitar interacción dentro del embed */
+}
+
+.doc-name {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #004d99;
+  text-align: center;
 }
