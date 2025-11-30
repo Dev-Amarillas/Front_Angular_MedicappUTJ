@@ -1,0 +1,62 @@
+<!-- NAV SUPERIOR -->
+<header class="header">
+  <div class="logo-area">
+    <img 
+      src="https://www.utj.edu.mx/wp-content/uploads/2022/01/Logo-UTJ-Verde.png" 
+      alt="Logo UTJ" 
+      class="utj-logo"
+    >
+  </div>
+<nav class="login-nav">
+  <button class="btn-back" routerLink="/">⬅️ Regresar al inicio</button>
+</nav>
+  
+</header>
+
+
+<div class="login-wrapper">
+
+  <div class="login-card shadow">
+
+    <h2 class="login-title">Bienvenido</h2>
+    <p class="login-subtitle">Ingresa tus credenciales para continuar</p>
+
+    <form (ngSubmit)="login()">
+
+      <!-- Usuario -->
+      <div class="form-group">
+        <label for="usuario">Usuario</label>
+        <input
+          id="usuario"
+          type="text"
+          class="form-control"
+          placeholder="Ejemplo: Admin"
+          [(ngModel)]="usuario"
+          name="usuario"
+          required
+        >
+      </div>
+
+      <!-- Contraseña -->
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input
+          id="password"
+          type="password"
+          class="form-control"
+          placeholder="••••••••"
+          [(ngModel)]="password"
+          name="password"
+          required
+        >
+      </div>
+
+      <button type="submit" class="btn-login">Entrar</button>
+
+      <p *ngIf="error" class="error-text">{{ error }}</p>
+
+    </form>
+
+  </div>
+
+</div>

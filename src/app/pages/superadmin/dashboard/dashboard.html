@@ -1,0 +1,76 @@
+<div class="dashboard-wrapper">
+
+  <!-- Título principal -->
+  <h1 class="dashboard-title">Panel de Administración</h1>
+  <p class="dashboard-subtitle">
+    Gestión centralizada del sistema médico estudiantil — UTJ
+  </p>
+
+  <!-- Sección de indicadores -->
+  <div class="stats-grid">
+
+    <div class="stat-card">
+      <h3 class="stat-title">Estudiantes Registrados</h3>
+      <p class="stat-number">{{ totalAlumnos || 0 }}</p>
+      <span class="stat-desc">Total dentro del sistema</span>
+    </div>
+
+    <div class="stat-card">
+      <h3 class="stat-title">Consultas Médicas</h3>
+      <p class="stat-number">{{ totalConsultas || 0 }}</p>
+      <span class="stat-desc">Historial registrado</span>
+    </div>
+
+    <div class="stat-card">
+      <h3 class="stat-title">Personal Médico</h3>
+      <p class="stat-number">{{ totalMedicos || 0 }}</p>
+      <span class="stat-desc">Doctores y asistentes</span>
+    </div>
+
+    <div class="stat-card">
+      <h3 class="stat-title">Alertas Activas</h3>
+      <p class="stat-number">{{ alertasActivas || 0 }}</p>
+      <span class="stat-desc">Pendientes por revisión</span>
+    </div>
+
+  </div>
+
+  <!-- Accesos rápidos -->
+  <h2 class="section-title">Accesos Rápidos</h2>
+
+  <div class="quick-links">
+
+    <a routerLink="/superadmin/alumnos" class="quick-card">
+      <h3>Gestión de Alumnos</h3>
+      <p>Consulta, registra y administra perfiles estudiantiles.</p>
+    </a>
+
+    <a routerLink="/superadmin/admin" class="quick-card">
+      <h3>Administradores</h3>
+      <p>Control de cuentas administrativas del sistema.</p>
+    </a>
+
+    <a routerLink="/superadmin/medicos" class="quick-card">
+      <h3>Personal Médico</h3>
+      <p>Información y registro del equipo clínico institucional.</p>
+    </a>
+
+    <a routerLink="/superadmin/tutores" class="quick-card">
+      <h3>Tutores Académicos</h3>
+      <p>Control y actualización de los tutores adscritos.</p>
+    </a>
+
+  </div>
+
+  <!-- Información institucional -->
+  <div class="info-box">
+    <h2 class="info-title">Administración del Ecosistema Médico UTJ</h2>
+    <p class="info-text">
+      Este panel permite gestionar la estructura operativa del sistema de salud 
+      estudiantil, garantizando un entorno seguro, confiable y orientado al bienestar. 
+      Desde aquí se centraliza la administración de usuarios, personal médico, alertas, 
+      y recursos clínicos esenciales para el funcionamiento institucional.
+    </p>
+  </div>
+
+</div>

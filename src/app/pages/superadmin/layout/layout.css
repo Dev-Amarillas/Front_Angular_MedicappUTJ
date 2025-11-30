@@ -1,0 +1,195 @@
+/* Contenedor general */
+.layout-container {
+  display: flex;
+  overflow: hidden;
+  background: #f7fbff;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh; /* IMPORTANTE */
+  min-height: 100vh; /* Asegura que nunca sea menor */
+  
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background: linear-gradient(90deg, #004d99, #9de5f0);
+  color: white;
+  padding: 20px;
+  margin: 0%;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn .5s ease;
+}
+
+.logo {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 35px;
+  letter-spacing: 2px;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 14px;
+  margin-bottom: 10px;
+
+  border-radius: 10px;
+  color: white;
+  text-decoration: none;
+  transition: .25s ease;
+  font-size: 15px;
+}
+
+.menu a:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateX(3px);
+}
+
+.active {
+  background: rgba(255, 255, 255, 0.25);
+  font-weight: bold;
+}
+
+.icon {
+  font-size: 18px;
+}
+
+/* Botón de cerrar sesión */
+.logout-btn {
+  margin-top: auto;
+  padding: 12px;
+  background: #d9534f;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: .25s ease;
+}
+
+.logout-btn:hover {
+  background: #c9302c;
+  transform: translateY(-2px);
+}
+
+/* Contenido principal */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Barra superior */
+.topbar {
+  background: white;
+  padding: 18px 25px;
+  border-bottom: 1px solid #dce7f3;
+}
+
+.welcome {
+  margin: 0;
+  color: #003a6c;
+  font-size: 20px;
+}
+
+/* Contenedor de las vistas */
+.content {
+  padding: 25px;
+  overflow-y: auto;
+  animation: fade .4s ease;
+}
+
+/* Animaciones */
+@keyframes slideIn {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.icon-svg {
+  width: 30px;
+  height: 30px;
+  fill: rgb(0, 0, 0);
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+}
+
+/* Topbar estilo UTJ */
+.topbar-admin {
+  width: 100%;
+  background: linear-gradient(90deg, #9de5f0, #004d99);
+  border-bottom: 1px solid #dce7f3;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px 25px;
+  box-sizing: border-box;
+
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Logo */
+.topbar-logo {
+  height: 45px;
+  width: auto;
+}
+
+/* Navegación */
+.topbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.topbar-nav a {
+  text-decoration: none;
+  color: #003a6c;
+  font-weight: 600;
+  font-size: 15px;
+  transition: .25s ease;
+}
+
+.topbar-nav a:hover {
+  color: #007acc;
+}
+
+/* Texto "Bienvenido Administrador" */
+.admin-label {
+  color: #eaeff3;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+/* Ajuste para responsivo */
+@media (max-width: 700px) {
+  .topbar-admin {
+    flex-direction: column;
+    gap: 10px;
+    
+  }
+
+  .topbar-nav {
+    justify-content: center;
+    
+  }
+}

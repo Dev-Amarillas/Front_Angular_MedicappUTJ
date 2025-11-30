@@ -1,0 +1,185 @@
+/* Fondo idéntico al Home */
+body {
+  background-image: url('https://ybl.mx/files/stacks-image-3998051-1200x1200.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+.header {
+  margin-top: 0 !important;
+  width: 100vw !important;
+  margin-left: calc(50% - 50vw);   /* Rompe el centrado del contenedor padre */
+  margin-right: calc(50% - 50vw);
+  background: linear-gradient(90deg, #9de5f0, #004d99);
+  color: #fff;
+  padding: 10px 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+/* Nav superior del login */
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.utj-logo {
+  width: 230px;
+  height: auto;
+  filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));
+}
+
+.nav {
+  display: flex;
+  gap: 25px;
+}
+
+/* Contenedor del login */
+.login-wrapper {  
+  min-height: calc(100vh - 120px); /* que no se empalme con el header */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  animation: fadeIn 0.7s ease forwards;
+}
+
+/* Tarjeta estilizada */
+.login-card {
+  background: rgba(255, 255, 255, 0.9);
+  width: 100%;
+  max-width: 420px;
+  padding: 35px 40px;
+  border-radius: 16px;
+
+  box-shadow: 0px 6px 18px rgba(0,0,0,0.15);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.6);
+
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Títulos */
+.login-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  color: #003a6c;
+  text-align: center;
+  text-shadow: 0px 1px 1px rgba(0,0,0,0.15);
+}
+
+.login-subtitle {
+  text-align: center;
+  color: #004d99;
+  margin-bottom: 25px;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+/* Inputs */
+.form-group {
+  margin-bottom: 18px;
+}
+
+label {
+  font-weight: 700;
+  font-size: 14px;
+  color: #003a6c;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 14px;
+
+  border-radius: 10px;
+  border: 1px solid #b8d4e6;
+
+  font-size: 15px;
+
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(3px);
+
+  transition: all .25s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0px 0px 6px rgba(0, 123, 255, 0.45);
+}
+
+/* Botón */
+.btn-login {
+  width: 100%;
+  padding: 13px;
+  
+  background: linear-gradient(90deg, #9de5f0, #004d99);
+  color: white;
+  
+  border: none;
+  border-radius: 10px;
+
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: .4px;
+
+  cursor: pointer;
+
+  transition: .25s ease;
+}
+
+.btn-login:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 6px 12px rgba(0,0,0,0.2);
+}
+
+/* Error */
+.error-text {
+  color: #d8000c;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Animaciones igual que tu home */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+/* Botón real del nav */
+.btn-back {
+  background: transparent;
+  border: 2px solid #cddcf0;
+  color: #ffffff;
+  padding: 8px 16px;
+  font-size: 15px;
+  font-weight: 600;
+
+  border-radius: 8px;
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.btn-back:hover {
+  background: rgba(0, 128, 255, 0.15);
+  transform: translateX(-3px);
+}
+

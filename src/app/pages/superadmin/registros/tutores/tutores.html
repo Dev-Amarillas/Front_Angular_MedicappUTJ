@@ -1,0 +1,8 @@
+<h2>Registro de Tutores</h2>
+
+<form (ngSubmit)="guardar()">
+  <input type="text" placeholder="Nombre" [(ngModel)]="tutor.nombre" name="nombre"><br>
+  <input type="text" placeholder="Teléfono" [(ngModel)]="tutor.telefono" name="telefono"><br>
+
+  <button class="btn">Guardar</button>
+</form>

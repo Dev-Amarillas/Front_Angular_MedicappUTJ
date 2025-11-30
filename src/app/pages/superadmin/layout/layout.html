@@ -1,0 +1,60 @@
+<div class="layout-container">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">MedicappUtj</h2>
+
+    <nav class="menu">
+       <a routerLink="/superadmin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <svg class="icon-svg" viewBox="0 0 32 32">
+          <path d="M 16 2.59375 L 15.28125 3.28125 L 2.28125 16.28125 L 3.71875 17.71875 L 5 16.4375 L 5 28 L 14 28 L 14 18 L 18 18 L 18 28 L 27 28 L 27 16.4375 L 28.28125 17.71875 L 29.71875 16.28125 L 16.71875 3.28125 Z M 16 5.4375 L 25 14.4375 L 25 26 L 20 26 L 20 16 L 12 16 L 12 26 L 7 26 L 7 14.4375 Z"></path>
+        </svg>
+        <span>Inicio</span>
+      </a>
+
+      <a routerLink="/superadmin/alumnos" routerLinkActive="active">
+        <span class="icon">🎓</span> Registro Alumnos
+      </a>
+
+      <a routerLink="/superadmin/admin" routerLinkActive="active">
+        <span class="icon">🛡️</span> Registro Administradores
+      </a>
+
+      <a routerLink="/superadmin/medicos" routerLinkActive="active">
+        <span class="icon">⚕️</span> Registro Médicos
+      </a>
+
+      <a routerLink="/superadmin/tutores" routerLinkActive="active">
+        <span class="icon">👨‍🏫</span> Registro Tutores
+      </a>
+    </nav>
+
+    <button class="logout-btn" (click)="logout()">
+      Cerrar sesión
+    </button>
+  </aside>
+
+  <!-- Contenido principal -->
+  <main class="main-content">
+     <header class="topbar-admin">
+  <div class="topbar-left">
+    <img 
+      src="https://www.utj.edu.mx/wp-content/uploads/2022/01/Logo-UTJ-Verde.png" 
+      alt="Logo UTJ"
+      class="topbar-logo"
+    >
+  </div>
+  <!-- este es el topbar, es como el nav pero dentro del dash-->
+  <nav class="topbar-nav">
+    <span class="admin-label">Bienvenido Administrador</span>
+  </nav>
+</header>
+
+
+    <!-- Vista del dash -->
+    <section class="content">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+
+</div>

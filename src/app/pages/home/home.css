@@ -1,0 +1,201 @@
+
+.header {
+  margin-top: 0 !important;
+  width: 100vw !important;
+  margin-left: calc(50% - 50vw);   /* Rompe el centrado del contenedor padre */
+  margin-right: calc(50% - 50vw);
+  background: linear-gradient(90deg, #9de5f0, #004d99);
+  color: #fff;
+  padding: 10px 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.utj-logo {
+  width: 230px;
+  height: auto;
+  filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2));
+}
+
+.nav {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 17px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+
+  transition: 
+    background 0.3s ease,
+    transform 0.25s ease,
+    opacity 0.3s ease;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+}
+
+ 
+body {
+  background-image: url('https://ybl.mx/files/stacks-image-3998051-1200x1200.png');  
+  background-size: cover;          /* cubre toda la pantalla */
+  background-repeat: no-repeat;
+  background-attachment: fixed;    /* hace que el fondo NO se mueva al scrollear */
+  background-position: center;     /* centra la imagen */
+} 
+
+
+.hero {
+  
+  margin: 80px auto 60px;
+  padding: 0 30px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 50px;
+}
+
+.hero-content {
+  animation: fadeIn 0.7s ease forwards;
+}
+
+.title {
+  font-size: 40px;
+  font-weight: 800;
+  margin-bottom: 25px;
+  line-height: 1.2;
+  color: #0f2a47;
+  text-shadow: 0px 1px 1px rgba(0,0,0,0.1);
+}
+
+.text {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #3d3d3d;
+  margin-bottom: 20px;
+}
+
+.hero-image {
+  text-align: center;
+}
+
+.illustration {
+  width: 100%;
+  max-width: 420px;
+  animation: float 4s ease-in-out infinite;
+  opacity: 0.95;
+}
+
+.features {
+  margin-top: 80px;
+  padding: 20px 40px;
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 32px;
+  color: #003a6c;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.feature-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 22px 26px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0px 8px 18px rgba(0,0,0,0.15);
+}
+
+.feature-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #004d99;
+  margin-bottom: 10px;
+}
+
+.feature-text {
+  font-size: 16px;
+  color: #4a4a4a;
+  line-height: 1.6;
+}
+
+
+/* === FOOTER ==================================================== */
+
+.footer-info {
+  margin-top: 70px;
+  padding: 30px 20px;
+  text-align: center;
+  color: #003a6c;
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+
+/* === ANIMACIONES ============================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+
+/* === RESPONSIVE =============================================== */
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 34px;
+  }
+
+  .utj-logo {
+    width: 180px;
+  }
+}

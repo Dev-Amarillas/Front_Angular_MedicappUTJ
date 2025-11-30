@@ -1,0 +1,8 @@
+<h2>Registro de Médicos</h2>
+
+<form (ngSubmit)="guardar()">
+  <input type="text" placeholder="Nombre" [(ngModel)]="medico.nombre" name="nombre"><br>
+  <input type="text" placeholder="Especialidad" [(ngModel)]="medico.especialidad" name="especialidad"><br>
+
+  <button class="btn">Guardar</button>
+</form>
