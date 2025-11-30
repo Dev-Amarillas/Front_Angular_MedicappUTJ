@@ -1,1 +1,7 @@
-<router-outlet></router-outlet>
+<router-outlet><script>
+  window.addEventListener('popstate', function () {
+    if (!localStorage.getItem('user')) {
+      location.href = '/login';
+    }
+  });
+</script></router-outlet>

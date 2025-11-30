@@ -13,9 +13,13 @@ export class LayoutComponent {
   constructor(private router: Router) {}
 
   logout() {
-    // limpia sesión, token, etc.
-    localStorage.removeItem('user');
-    this.router.navigate(['/login']);
-  }
+  localStorage.removeItem('user');
 
-}
+  this.router.navigate(['/login']).then(() => {
+    // Evitar regresar con BACK
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', () => {
+      history.pushState(null, '', location.href);
+    });
+  });
+}}

@@ -9,14 +9,31 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./alumnos.css']
 })
 export class AlumnosComponent {
+
   alumno = {
-    nombre: '',
-    apellido: '',
-    correo: '',
-    carrera: ''
+    nombre: "",
+    ap_paterno: "",
+    ap_materno: "",
+    email: "",
+    password: "",
+    rol: "alumno",
+    id_tutor: "",
+    carrera: "",
+    sede: "",
+    curp: "",
+    alergia: [] as string[],
+    sangre: "",
+    telefono: "",
+    segurosocial: "",
+    alergiasTexto: ""   
   };
 
   guardar() {
+    this.alumno.alergia = this.alumno.alergiasTexto
+      .split(",")
+      .map(a => a.trim())
+      .filter(a => a !== "");
+
     console.log("Alumno guardado:", this.alumno);
   }
 }

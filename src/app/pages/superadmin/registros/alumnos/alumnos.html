@@ -6,25 +6,86 @@
 
     <form (ngSubmit)="guardar()">
 
+      <!-- Nombre -->
       <div class="form-group">
         <label>Nombre</label>
-        <input type="text" [(ngModel)]="alumno.nombre" name="nombre" class="form-control" placeholder="Ingresa el nombre">
+        <input type="text" [(ngModel)]="alumno.nombre" name="nombre" class="form-control" placeholder="Ingresa el nombre" required>
       </div>
 
+      <!-- Apellido paterno -->
       <div class="form-group">
-        <label>Apellido</label>
-        <input type="text" [(ngModel)]="alumno.apellido" name="apellido" class="form-control" placeholder="Ingresa el apellido">
+        <label>Apellido Paterno</label>
+        <input type="text" [(ngModel)]="alumno.ap_paterno" name="ap_paterno" class="form-control" placeholder="Ingresa el apellido paterno" required>
       </div>
 
+      <!-- Apellido materno -->
       <div class="form-group">
-        <label>Correo</label>
-        <input type="email" [(ngModel)]="alumno.correo" name="correo" class="form-control" placeholder="ejemplo@utj.edu.mx">
+        <label>Apellido Materno</label>
+        <input type="text" [(ngModel)]="alumno.ap_materno" name="ap_materno" class="form-control" placeholder="Ingresa el apellido materno" required>
       </div>
 
+      <!-- Correo -->
+      <div class="form-group">
+        <label>Correo Institucional</label>
+        <input type="email" [(ngModel)]="alumno.email" name="email" class="form-control" placeholder="ejemplo@utj.edu.mx" required>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" [(ngModel)]="alumno.password" name="password" class="form-control" placeholder="Ingresa una contraseña" required>
+      </div>
+
+      <!-- CURP -->
+      <div class="form-group">
+        <label>CURP</label>
+        <input type="text" [(ngModel)]="alumno.curp" name="curp" class="form-control" placeholder="Ingresa la CURP">
+      </div>
+
+      <!-- Carrera -->
       <div class="form-group">
         <label>Carrera</label>
-        <input type="text" [(ngModel)]="alumno.carrera" name="carrera" class="form-control" placeholder="Ingresa la carrera">
+        <input type="text" [(ngModel)]="alumno.carrera" name="carrera" class="form-control" placeholder="Carrera del alumno">
       </div>
+
+      <!-- Sede -->
+      <div class="form-group">
+        <label>Sede</label>
+        <input type="text" [(ngModel)]="alumno.sede" name="sede" class="form-control" placeholder="Sede del alumno">
+      </div>
+
+      <!-- Teléfono -->
+      <div class="form-group">
+        <label>Teléfono</label>
+        <input type="tel" [(ngModel)]="alumno.telefono" name="telefono" class="form-control" placeholder="Número telefónico">
+      </div>
+
+      <!-- Sangre -->
+      <div class="form-group">
+        <label>Tipo de sangre</label>
+        <input type="text" [(ngModel)]="alumno.sangre" name="sangre" class="form-control" placeholder="Ej. O+, A-, etc.">
+      </div>
+
+      <!-- Seguro Social -->
+      <div class="form-group">
+        <label>Número de Seguro Social</label>
+        <input type="text" [(ngModel)]="alumno.segurosocial" name="segurosocial" class="form-control" placeholder="NSS del alumno">
+      </div>
+
+      <!-- Alergias -->
+      <div class="form-group">
+        <label>Alergias (separadas por comas)</label>
+        <input type="text" [(ngModel)]="alumno.alergia" name="alergia" class="form-control" placeholder="Ej. Penicilina, polvo, etc.">
+      </div>
+
+      <!-- Tutor (id ObjectId) -->
+      <div class="form-group">
+        <label>ID del Tutor (ObjectId)</label>
+        <input type="text" [(ngModel)]="alumno.id_tutor" name="id_tutor" class="form-control" placeholder="ID del tutor asignado">
+      </div>
+
+      <!-- Rol fijo -->
+      <input type="hidden" [(ngModel)]="alumno.rol" name="rol" value="alumno">
 
       <button class="btn-submit">Guardar</button>
     </form>

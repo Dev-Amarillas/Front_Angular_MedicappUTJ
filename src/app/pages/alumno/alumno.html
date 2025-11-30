@@ -1,0 +1,128 @@
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="logo-area">
+    <img 
+      src="https://www.utj.edu.mx/wp-content/uploads/2022/01/Logo-UTJ-Verde.png" 
+      alt="Logo UTJ"
+      class="utj-logo"
+    >
+  </div>
+
+  <nav class="nav">
+    <a routerLink="/" class="nav-link">Inicio</a>
+    <a routerLink="/login" class="nav-link">Cerrar sesión</a>
+  </nav>
+</header>
+
+<!-- ===== PANEL DEL ALUMNO ===== -->
+<section class="hero" style="margin-top: 50px;">
+  <div class="hero-content">
+    <h1 class="title">Panel del Estudiante</h1>
+
+    <p class="text">
+      Bienvenido a tu panel personal. Aquí podrás consultar tu información general, 
+      revisar tu estado médico institucional y administrar los justificantes o documentos
+      que hayas enviado.
+    </p>
+
+    <p class="text">
+      Mantén tus datos al día para asegurar una buena comunicación con el área médica
+      y la institución.
+    </p>
+  </div>
+
+  <div class="hero-image">
+    <img 
+      src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
+      alt="Alumno"
+      class="illustration"
+      style="max-width: 350px;"
+    >
+  </div>
+</section>
+
+<!-- ===== INFORMACIÓN GENERAL ===== -->
+<section class="features" style="margin-top: 40px;">
+  <h2 class="section-title">Información del Alumno</h2>
+
+  <div class="features-grid">
+
+    <div class="feature-card">
+      <h3 class="feature-title">Nombre completo</h3>
+      <p class="feature-text">{{ alumno.nombre }}</p>
+    </div>
+
+    <div class="feature-card">
+      <h3 class="feature-title">Matrícula</h3>
+      <p class="feature-text">{{ alumno.matricula }}</p>
+    </div>
+
+    <div class="feature-card">
+      <h3 class="feature-title">Carrera</h3>
+      <p class="feature-text">{{ alumno.carrera }}</p>
+    </div>
+
+    <div class="feature-card">
+      <h3 class="feature-title">Correo Institucional</h3>
+      <p class="feature-text">{{ alumno.correo }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ESTADO MÉDICO ===== -->
+<section class="features">
+  <h2 class="section-title">Estado Médico Registrado</h2>
+
+  <div class="feature-card" style="max-width: 800px; margin: 0 auto;">
+    <p class="feature-text">
+      {{ alumno.estadoMedico || "Aún no se registra información médica reciente." }}
+    </p>
+  </div>
+</section>
+
+<!-- ===== DOCUMENTOS ===== -->
+<section class="features">
+  <h2 class="section-title">Justificantes y Documentos</h2>
+
+  <div style="text-align: center; margin-bottom: 25px;">
+    <button class="btn-upload" (click)="subirDocumento()" 
+      style="
+        background: #004d99; 
+        color: white; 
+        padding: 10px 20px; 
+        border-radius: 8px; 
+        font-size: 16px; 
+        cursor: pointer;
+      ">
+      Subir documento
+    </button>
+  </div>
+
+  <div class="features-grid">
+
+    <div 
+      class="feature-card"
+      style="cursor: pointer; text-align:center;"
+      *ngFor="let doc of documentos"
+      (click)="abrirDocumento(doc)"
+    >
+      <img 
+        src="https://cdn-icons-png.flaticon.com/512/337/337946.png"
+        alt="PDF"
+        style="width:60px; margin-bottom:10px;"
+      >
+      <h3 class="feature-title">{{ doc.nombre }}</h3>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<section class="footer-info">
+  <p class="footer-text">
+    Panel del Estudiante – UTJ | Gestión Médica Institucional  
+    <br>
+    <a href="https://www.utj.edu.mx">www.utj.edu.mx</a>
+  </p>
+</section>
+
