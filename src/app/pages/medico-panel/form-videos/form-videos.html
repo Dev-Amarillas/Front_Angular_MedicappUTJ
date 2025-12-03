@@ -1,9 +1,0 @@
-<input [(ngModel)]="nuevoVideo" placeholder="URL de video (YouTube embed)">
-<button (click)="agregar()">Agregar</button>
-
-<ul>
-  <li *ngFor="let vid of videos; let i = index">
-    {{ vid }}
-    <button (click)="eliminar(i)">Quitar</button>
-  </li>
-</ul>

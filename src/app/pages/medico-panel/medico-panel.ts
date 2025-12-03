@@ -9,15 +9,17 @@ type ImageItem = {
   id: string;
   title: string;
   caption: string;
-  src: string; // data URL o URL pública
+  src?: string;      // URL guardada en BD
+  file?: File;       // archivo nuevo
+  preview?: string;  // dataURL para previsualización
 };
 
 type VideoItem = {
   id: string;
   title: string;
   caption: string;
-  url: string; // original URL
-  embed?: SafeResourceUrl; // sanitized embed url
+  url: string;
+  embed?: SafeResourceUrl;
 };
 
 @Component({
@@ -28,22 +30,18 @@ type VideoItem = {
   styleUrls: ['./medico-panel.css']
 })
 export class MedicoPanelComponent {
-  constructor(private sanitizer: DomSanitizer, private miServicio: MedicoService ) {}
 
-  // Texto público editable
+  constructor(
+    private sanitizer: DomSanitizer, 
+    private miServicio: MedicoService
+  ) {}
+
+  panelId?: string;
+
   textoPublico: string = 'Bienvenido a mi consultorio virtual.';
+  imagenes: ImageItem[] = [];
+  videos: VideoItem[] = [];
 
-  // Imágenes gestionadas por el médico
-  imagenes: ImageItem[] = [
-    // ejemplo: { id:'1', title:'Título', caption:'Texto', src:'https://...' }
-  ];
-
-  // Videos gestionados por el médico
-  videos: VideoItem[] = [
-    // ejemplo: { id:'v1', title:'Video demo', caption:'Descripción', url:'https://youtu.be/...' }
-  ];
-
-  // Campos temporales para agregar
   nuevaImagenFile?: File;
   nuevaImagenTitle = '';
   nuevaImagenCaption = '';
@@ -52,144 +50,197 @@ export class MedicoPanelComponent {
   nuevoVideoTitle = '';
   nuevoVideoCaption = '';
 
-  // ===== Imágenes =====
+  // ────────────────────────────────────────────────
+  // CARGAR INFO DESDE BACKEND
+  // ────────────────────────────────────────────────
+  ngOnInit() {
+    this.miServicio.obtenerContenido().subscribe({
+      next: (resp: any) => {
+        const data = Array.isArray(resp?.datos) ? resp.datos[0] : resp?.datos;
+        if (!data) return;
+
+        this.panelId = data._id;
+        this.textoPublico = data.texto || this.textoPublico;
+
+        // imágenes guardadas → src directo de BD
+        this.imagenes = (data.imagenes || []).map((img: any) => ({
+          id: img.id,
+          title: img.title,
+          caption: img.caption,
+          src: img.src
+        }));
+
+        // videos → generar embed
+        this.videos = (data.videos || []).map((v: any) => ({
+          ...v,
+          embed: this.sanitizer.bypassSecurityTrustResourceUrl(
+            `https://www.youtube.com/embed/${this.extraerIdYoutube(v.url)}`
+          )
+        }));
+      },
+      error: (err) => console.error("Error cargando datos:", err)
+    });
+  }
+
+  // ────────────────────────────────────────────────
+  // IMÁGENES
+  // ────────────────────────────────────────────────
   onImageFileChange(ev: Event) {
     const input = ev.target as HTMLInputElement;
-    if (!input.files || !input.files[0]) return;
-    const file = input.files[0];
-    this.nuevaImagenFile = file;
+    if (!input.files?.length) return;
+
+    this.nuevaImagenFile = input.files[0];
 
     const reader = new FileReader();
     reader.onload = () => {
-      // previsualización inmediata: asignar dataURL como src
-      this.nuevaImagenFile = file;
-      // Guardamos dataURL temporal en src de un item cuando se agregue
-      // mostramos automáticamente la previsualización en template usando file preview
-      const dataUrl = reader.result as string;
-      // opcional: podemos mostrar mini preview vía una variable temporal
-      (document.getElementById('preview-nueva-imagen') as HTMLImageElement | null)?.setAttribute('src', dataUrl);
+      (document.getElementById('preview-nueva-imagen') as HTMLImageElement)?.setAttribute('src', reader.result as string);
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(this.nuevaImagenFile);
   }
 
   agregarImagen() {
     if (!this.nuevaImagenFile) {
-      alert('Selecciona primero una imagen.');
+      alert("Selecciona primero una imagen.");
       return;
     }
+
+    const file = this.nuevaImagenFile;
     const reader = new FileReader();
+
     reader.onload = () => {
-      const src = reader.result as string;
       this.imagenes.push({
         id: this.uuid(),
         title: this.nuevaImagenTitle || 'Sin título',
         caption: this.nuevaImagenCaption || '',
-        src
+        file,
+        preview: reader.result as string
       });
+
       // reset
       this.nuevaImagenFile = undefined;
       this.nuevaImagenTitle = '';
       this.nuevaImagenCaption = '';
-      const input = document.getElementById('input-nueva-imagen') as HTMLInputElement | null;
-      if (input) input.value = '';
-      const prev = document.getElementById('preview-nueva-imagen') as HTMLImageElement | null;
-      if (prev) prev.removeAttribute('src');
+      (document.getElementById('input-nueva-imagen') as HTMLInputElement)!.value = '';
+      (document.getElementById('preview-nueva-imagen') as HTMLImageElement)?.removeAttribute('src');
     };
-    reader.readAsDataURL(this.nuevaImagenFile!);
+
+    reader.readAsDataURL(file);
   }
 
   editarImagenCampo(id: string, campo: 'title' | 'caption', valor: string) {
-    const it = this.imagenes.find(i => i.id === id);
-    if (!it) return;
-    if (campo === 'title') it.title = valor;
-    else it.caption = valor;
+    const img = this.imagenes.find(i => i.id === id);
+    if (img) img[campo] = valor;
   }
 
   eliminarImagen(id: string) {
     this.imagenes = this.imagenes.filter(i => i.id !== id);
   }
 
-  // ===== Videos =====
+  // ────────────────────────────────────────────────
+  // VIDEOS
+  // ────────────────────────────────────────────────
   agregarVideo() {
     const url = this.nuevoVideoUrl.trim();
-    if (!url) {
-      alert('Ingresa la URL de YouTube.');
-      return;
-    }
+    if (!url) return alert("Ingresa la URL del video.");
+
     const id = this.extraerIdYoutube(url);
-    if (!id) {
-      alert('No se pudo extraer el ID de YouTube. Usa una URL válida.');
-      return;
-    }
-    const embed = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${id}`);
-    const item: VideoItem = {
+    if (!id) return alert("URL de YouTube inválida.");
+
+    this.videos.push({
       id: this.uuid(),
       title: this.nuevoVideoTitle || 'Sin título',
       caption: this.nuevoVideoCaption || '',
       url,
-      embed
-    };
-    this.videos.push(item);
-    // reset
+      embed: this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${id}`)
+    });
+
     this.nuevoVideoUrl = '';
     this.nuevoVideoTitle = '';
     this.nuevoVideoCaption = '';
   }
 
   editarVideoCampo(id: string, campo: 'title' | 'caption', valor: string) {
-    const it = this.videos.find(v => v.id === id);
-    if (!it) return;
-    if (campo === 'title') it.title = valor;
-    else it.caption = valor;
+    const v = this.videos.find(x => x.id === id);
+    if (v) v[campo] = valor;
   }
 
   eliminarVideo(id: string) {
     this.videos = this.videos.filter(v => v.id !== id);
   }
 
-  // Convierte URLs existentes (si las pones manualmente) a embed y sanitize
-  sanitizeAllVideos() {
-    this.videos.forEach(v => {
-      const id = this.extraerIdYoutube(v.url);
-      if (id) v.embed = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${id}`);
-    });
-  }
-
-  // ===== Utilidades =====
+  // ────────────────────────────────────────────────
+  // UTILIDADES
+  // ────────────────────────────────────────────────
   extraerIdYoutube(url: string): string {
-    // Soporta muchos formatos (youtu.be, watch?v=, embed/)
-    const regExp = /(?:youtube\.com\/(?:watch\?v=|embed\/|v\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/;
-    const m = url.match(regExp);
-    if (m && m[1]) return m[1];
-    // fallback: try to capture v= param
-    const urlObj = new URL(url, window.location.origin);
-    const v = urlObj.searchParams.get('v');
-    if (v && v.length === 11) return v;
-    return '';
+    const reg = /(?:youtube\.com\/(?:watch\?v=|embed\/|v\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/;
+    const m = url.match(reg);
+    if (m?.[1]) return m[1];
+
+    const obj = new URL(url, window.location.origin);
+    const v = obj.searchParams.get("v");
+    return v?.length === 11 ? v : '';
   }
 
   uuid() {
-    // id simple
-    return Math.random().toString(36).slice(2, 9);
+    return Math.random().toString(36).substring(2, 9);
   }
+
+  // ────────────────────────────────────────────────
+  // GUARDAR CAMBIOS (A → MULTIPLES IMÁGENES + upload)
+  // ────────────────────────────────────────────────
   guardarCambios() {
-  const payload = {
-    texto: this.textoPublico,
-    imagenes: this.imagenes,
-    videos: this.videos
-  };
+    const imagenesKeep = this.imagenes
+      .filter(i => i.src && !i.file)
+      .map(i => ({
+        id: i.id,
+        title: i.title,
+        caption: i.caption,
+        src: i.src
+      }));
 
-  console.log("Enviando datos actualizados:", payload);
+    const imagenesMeta: Array<any> = [];
+    const newFiles: File[] = [];
 
-  this.miServicio.editarContenido(payload).subscribe({
-    next: (resp) => {
-      alert("Cambios guardados correctamente ✔");
-    },
-    error: (err) => {
-      console.error(err);
-      alert("Ocurrió un error al guardar los cambios");
+    this.imagenes.forEach(i => {
+      if (i.file) {
+        newFiles.push(i.file);
+        imagenesMeta.push({
+          id: i.id,
+          title: i.title,
+          caption: i.caption
+        });
+      }
+    });
+
+    const form = new FormData();
+    form.append('texto', this.textoPublico);
+    form.append('videos', JSON.stringify(
+      this.videos.map(v => ({
+        id: v.id,
+        title: v.title,
+        caption: v.caption,
+        url: v.url
+      }))
+    ));
+
+    form.append('imagenesKeep', JSON.stringify(imagenesKeep));
+    form.append('imagenesMeta', JSON.stringify(imagenesMeta));
+    newFiles.forEach(f => form.append('imagenes', f));
+
+    if (!this.panelId) {
+      this.miServicio.crearContenidoFormData(form).subscribe({
+        next: (resp) => {
+          alert("Contenido creado correctamente ✔");
+          if (resp?.datos?._id) this.panelId = resp.datos._id;
+        },
+        error: (err) => console.error(err)
+      });
+      return;
     }
-  });
-}
 
+    this.miServicio.editarContenidoFormData(this.panelId, form).subscribe({
+      next: () => alert("Cambios guardados correctamente ✔"),
+      error: (err) => console.error(err)
+    });
+  }
 }

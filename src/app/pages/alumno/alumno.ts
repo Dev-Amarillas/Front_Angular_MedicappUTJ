@@ -40,21 +40,39 @@ export class Alumno implements OnInit {
   }
 
   cargarContenidoPublico() {
-    this.servicio.obtenerContenido().subscribe({
-      next: (data) => {
-        // Convertimos embed de videos para Angular
-        data.videos = data.videos.map((v: any) => ({
-          ...v,
-          embed: this.sanitizer.bypassSecurityTrustResourceUrl(v.embed)
-        }));
+  this.servicio.obtenerContenido().subscribe({
+    next: (res: any) => {
 
-        this.contenido = data;
-      },
-      error: (err) => {
-        console.error("Error cargando contenido:", err);
-      }
-    });
-  }
+      const data = res.datos;
+
+      // Convertir videos (crear embed a partir del URL)
+      const videosConvertidos = data.videos.map((v: any) => {
+        const id = this.extraerVideoId(v.url);
+        return {
+          ...v,
+          embed: this.sanitizer.bypassSecurityTrustResourceUrl(
+            `https://www.youtube.com/embed/${id}`
+          )
+        };
+      });
+
+      this.contenido = {
+        texto: data.texto || "",
+        imagenes: data.imagenes || [],
+        videos: videosConvertidos
+      };
+
+    },
+    error: (err) => {
+      console.error("Error cargando contenido:", err);
+    }
+  });
+}
+extraerVideoId(url: string): string {
+  const match = url.match(/(?:v=|youtu\.be\/)([^&?/]+)/);
+  return match ? match[1] : "";
+}
+
 
   subirDocumento() {
     alert("Funcionalidad pendiente");
