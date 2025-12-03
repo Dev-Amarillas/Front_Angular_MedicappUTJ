@@ -1,44 +1,66 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { MedicoService } from '../../services/editarContenido';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-alumno',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './alumno.html',
   styleUrls: ['./alumno.css']
 })
-export class Alumno {
+export class Alumno implements OnInit {
 
-  // === Información del alumno (simulada o recibida por login) ===
+  constructor(
+    private servicio: MedicoService,
+    private sanitizer: DomSanitizer
+  ) {}
+
   alumno = {
     nombre: 'Nombre del Alumno',
     matricula: '000000000',
     carrera: 'Carrera del Alumno',
     correo: 'correo@utj.edu.mx',
-    estadoMedico: ''  // puedes llenarlo luego
+    estadoMedico: ''
   };
 
-  // === Lista de documentos PDF subidos ===
-  documentos: any[] = [
-    //  Ejemplo:
-    // { nombre: 'Constancia Médica.pdf', url: 'https://...' }
-  ];
+  documentos: any[] = [];
 
-  // === Método para subir un PDF ===
-  subirDocumento() {
-    console.log('Subiendo documento...');
-    // Aquí luego conectas backend
-    alert('Función de subir documento lista para implementar.');
+  // === Contenido público proveniente del médico ===
+  contenido: any = {
+    texto: '',
+    imagenes: [],
+    videos: []
+  };
+
+  ngOnInit() {
+    this.cargarContenidoPublico();
   }
 
-  // === Método para abrir un PDF ===
+  cargarContenidoPublico() {
+    this.servicio.obtenerContenido().subscribe({
+      next: (data) => {
+        // Convertimos embed de videos para Angular
+        data.videos = data.videos.map((v: any) => ({
+          ...v,
+          embed: this.sanitizer.bypassSecurityTrustResourceUrl(v.embed)
+        }));
+
+        this.contenido = data;
+      },
+      error: (err) => {
+        console.error("Error cargando contenido:", err);
+      }
+    });
+  }
+
+  subirDocumento() {
+    alert("Funcionalidad pendiente");
+  }
+
   abrirDocumento(doc: any) {
-    if (doc.url) {
-      window.open(doc.url, '_blank');
-    } else {
-      alert('Este documento aún no tiene archivo subido.');
-    }
+    if (doc.url) window.open(doc.url, '_blank');
   }
 }

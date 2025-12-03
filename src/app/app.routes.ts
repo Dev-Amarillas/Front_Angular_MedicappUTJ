@@ -14,6 +14,9 @@ import { TutoresComponent } from './pages/superadmin/registros/tutores/tutores';
 import { Alumno } from './pages/alumno/alumno'; 
 import { authGuard } from './auth-guard';
 
+import { MedicoPanelComponent } from './pages/medico-panel/medico-panel';
+import { Tutor } from './pages/tutor/tutor';
+
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
@@ -31,5 +34,10 @@ export const routes: Routes = [
   },
 
     // ===== ALUMNO =====
-  { path: 'alumno', component: Alumno, canActivate: [authGuard] }
+  { path: 'alumno', component: Alumno, canActivate: [authGuard] },
+  // === MEDICO ===
+   { path: 'medico', component: MedicoPanelComponent, canActivate: [authGuard] },
+    // ===== TUTOR =====
+  { path: 'tutor', component: Tutor, canActivate: [authGuard] },
+
 ];

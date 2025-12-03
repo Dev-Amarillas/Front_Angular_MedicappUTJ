@@ -1,36 +1,82 @@
-<div class="medicos-wrapper">
+<div class="registro-container">
 
-  <div class="medicos-card">
-    <h2 class="medicos-title">Registro de Médicos</h2>
-    <p class="medicos-subtitle">Agrega profesionales de salud al sistema</p>
+  <!-- LADO IZQUIERDO -->
+  <div class="left-panel">
+    <h1>Registrar Médico</h1>
+    <p>Captura sus datos y súbele una fotografía para su expediente</p>
+
+    <div class="image-upload">
+      <img [src]="preview || 'assets/user-placeholder.png'" class="preview-img">
+
+      <label for="foto" class="btn-upload">Subir Foto</label>
+      <input id="foto" type="file" accept="image/*" (change)="onFileSelected($event)" hidden>
+    </div>
+  </div>
+
+  <!-- FORMULARIO -->
+  <div class="right-panel">
 
     <form (ngSubmit)="guardar()">
 
-      <div class="form-group">
-        <label>Nombre del Médico</label>
-        <input 
-          type="text" 
-          class="form-control"
-          [(ngModel)]="medico.nombre" 
-          name="nombre"
-          placeholder="Ej. Juan Pérez"
-        >
+      <div class="form-row">
+        <div>
+          <label>Nombre (s)</label>
+          <input type="text" [(ngModel)]="medico.nombre" name="nombre" placeholder="Nombre(s)" required>
+        </div>
+
+        <div>
+          <label>Apellido Paterno</label>
+          <input type="text" [(ngModel)]="medico.ap_paterno" name="ap_paterno" placeholder="Apellido Paterno" required>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label>Especialidad</label>
-        <input 
-          type="text" 
-          class="form-control"
-          [(ngModel)]="medico.especialidad" 
-          name="especialidad"
-          placeholder="Ej. Medicina General"
-        >
+      <div class="form-row">
+        <div>
+          <label>Apellido Materno</label>
+          <input type="text" [(ngModel)]="medico.ap_materno" name="ap_materno" placeholder="Apellido Materno" required>
+        </div>
+
+        <div>
+          <label>Correo Institucional</label>
+          <input type="email" [(ngModel)]="medico.email" name="email" placeholder="ejemplo@soy.utj.edu.mx" required>
+        </div>
       </div>
 
-      <button class="btn-submit">Guardar Médico</button>
+      <div class="form-row">
+        <div>
+          <label>Contraseña</label>
+          <input type="password" [(ngModel)]="medico.password" name="password" required placeholder="********">
+        </div>
+
+        <div>
+          <label>Turno</label>
+          <input type="text" [(ngModel)]="medico.turno" name="turno" placeholder="Matutino / Vespertino">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label>Teléfono</label>
+          <input type="tel" [(ngModel)]="medico.telefono" name="telefono" placeholder="telefono">
+        </div>
+
+        <div>
+          <label>Sede</label>
+          <input type="text" [(ngModel)]="medico.sede" name="sede" placeholder="Sede de la Universidad">
+        </div>
+      </div>
+      <div class="form-row">
+       <div>
+          <label>ID tarjeta</label>
+          <input type="text" [(ngModel)]="medico.nfc_uid" name="id_tarjeta" placeholder="ID Tarjeta">
+        </div>
+
+      </div>
+
+      <input type="hidden" name="rol" [(ngModel)]="medico.rol" value="medico">
+
+      <button class="btn-submit">Registrar Médico</button>
+
     </form>
-
   </div>
-
 </div>

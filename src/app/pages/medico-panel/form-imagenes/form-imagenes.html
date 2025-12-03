@@ -1,0 +1,9 @@
+<input [(ngModel)]="nuevaImagen" placeholder="URL de imagen">
+<button (click)="agregar()">Agregar</button>
+
+<ul>
+  <li *ngFor="let img of imagenes; let i = index">
+    {{ img }}
+    <button (click)="eliminar(i)">Quitar</button>
+  </li>
+</ul>

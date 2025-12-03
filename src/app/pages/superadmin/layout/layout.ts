@@ -16,7 +16,7 @@ export class LayoutComponent {
   localStorage.removeItem('user');
 
   this.router.navigate(['/login']).then(() => {
-    // Evitar regresar con BACK
+    // Evitar regresar con el BACK del navegador
     history.pushState(null, '', location.href);
     window.addEventListener('popstate', () => {
       history.pushState(null, '', location.href);

@@ -1,0 +1,158 @@
+/* header (mantener estilo institucional) */
+.header {
+  margin-top: 0 !important;
+  width: 100vw !important;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  background: linear-gradient(90deg, #9de5f0, #004d99);
+  color: #fff;
+  padding: 12px 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.logo-area { display:flex; align-items:center; gap:30px; }
+.utj-logo { width:200px; height:auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15)); }
+.nav { display:flex; gap:20px; }
+.nav-link { color:#fff; text-decoration:none; padding:8px 12px; border-radius:8px; transition:.2s; }
+.nav-link:hover { background: rgba(255,255,255,0.14); transform: translateY(-2px); }
+
+/* contenedor principal */
+.panel-container {
+  max-width: 1200px;
+  margin: 28px auto 80px;
+  padding: 0 20px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #1a344b;
+}
+
+/* títulos */
+.panel-title { font-size: 30px; margin-bottom: 18px; color: #07385b; font-weight:800; }
+
+/* tarjetas */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(2,18,35,0.06);
+  margin-bottom: 26px;
+  border: 1px solid rgba(2,18,35,0.04);
+}
+
+/* form rows */
+.form-row { display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap; }
+.col { flex:1 1 260px; min-width:220px; display:flex; flex-direction:column; }
+.col-file { width:210px; display:flex; flex-direction:column; gap:8px; }
+.col-actions { display:flex; align-items:flex-end; gap:8px; }
+
+/* inputs */
+.form-input, input[type="text"], input[type="url"], textarea {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d7eaf7;
+  background: rgba(255,255,255,0.98);
+  font-size: 14px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+}
+textarea { min-height: 60px; resize: vertical; }
+
+/* botones */
+.btn {
+  background: linear-gradient(90deg,#0091d6,#004d99);
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight:700;
+}
+.btn.small { padding:6px 10px; font-size:13px; background:#e64b4b; }
+.btn.small:hover { transform: translateY(-2px); }
+
+/* grid de cards media */
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.media-card {
+  background: #fbfdff;
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid #e6f1fb;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+}
+
+.card-img {
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:8px;
+  margin-bottom:8px;
+}
+
+.card-title {
+  font-weight:700;
+  border-radius:6px;
+  padding:8px;
+  margin-bottom:8px;
+  border: 1px solid #e6f1fb;
+}
+
+.card-caption {
+  min-height:48px;
+  border-radius:6px;
+  padding:8px;
+  margin-bottom:8px;
+  border: 1px solid #e6f1fb;
+}
+
+/* mini preview image */
+.thumb-preview {
+  width:100%;
+  height:90px;
+  object-fit:cover;
+  border-radius:6px;
+  border:1px dashed rgba(2,18,35,0.06);
+}
+
+/* video wrap */
+.video-wrap { width:100%; height:160px; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:8px; background:#000; color:#fff; }
+.video-wrap iframe { width:100%; height:100%; border:0; }
+
+/* preview general */
+.preview { background:#f8fbff; }
+.preview-text { padding:10px 0; }
+.preview-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:16px; margin-top:10px; }
+.preview-item { background:#fff; border-radius:8px; padding:12px; border:1px solid #e6f1fb; text-align:center; }
+.preview-item img { width:100%; height:150px; object-fit:cover; border-radius:6px; margin-bottom:8px; }
+
+/* responsive */
+@media (max-width: 880px) {
+  .form-row { flex-direction:column; align-items:stretch; }
+  .col-file { width:100%; }
+}
+.btn-guardar {
+  margin-top: 30px;
+  padding: 12px 20px;
+  background: #2e8b57;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.btn-guardar:hover {
+  background: #256f45;
+}

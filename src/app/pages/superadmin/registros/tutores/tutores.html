@@ -1,35 +1,73 @@
-<div class="tutores-wrapper">
+<div class="registro-container">
 
-  <div class="tutores-card">
-    <h2 class="tutores-title">Registro de Tutores</h2>
-    <p class="tutores-subtitle">Ingresa los datos del tutor</p>
+  <!-- LADO IZQUIERDO: IMAGEN + TEXTO -->
+  <div class="left-panel">
+    <h1>Registrar Tutor</h1>
+    <p>Captura sus datos y súbele una fotografía para su expediente</p>
+
+    <!-- FOTO + PREVIEW -->
+    <div class="image-upload">
+      <img [src]="" class="preview-img">
+
+      <label for="imagen" class="btn-upload">Subir Foto</label>
+      <input id="imagen" type="file" accept="image/*" (change)="onFileSelected($event)" hidden>
+    </div>
+  </div>
+
+  <!-- LADO DERECHO: FORMULARIO -->
+  <div class="right-panel">
 
     <form (ngSubmit)="guardar()">
 
-      <div class="form-group">
-        <label>Nombre del Tutor</label>
-        <input 
-          type="text" 
-          class="form-control" 
-          placeholder="Ej. Juan Pérez"
-          [(ngModel)]="tutor.nombre" 
-          name="nombre"
-        />
+      <div class="form-row">
+        <div>
+          <label>Nombre (s)</label>
+          <input type="text" [(ngModel)]="tutor.nombre" name="nombre" placeholder="Nombre" required>
+        </div>
+
+        <div>
+          <label>Apellido Paterno</label>
+          <input type="text" [(ngModel)]="tutor.ap_paterno" name="ap_paterno" placeholder="Apellido paterno" required>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label>Teléfono</label>
-        <input 
-          type="text" 
-          class="form-control" 
-          placeholder="Ej. 3322457788"
-          [(ngModel)]="tutor.telefono" 
-          name="telefono"
-        />
+      <div class="form-row">
+        <div>
+          <label>Apellido Materno</label>
+          <input type="text" [(ngModel)]="tutor.ap_materno" name="ap_materno" placeholder="Apellido materno" required>
+        </div>
+
+        <div>
+          <label>Correo Institucional</label>
+          <input type="email" [(ngModel)]="tutor.email" name="email" placeholder="ejemplo@utj.edu.mx" required>
+        </div>
       </div>
 
-      <button class="btn-submit">Guardar</button>
+      <div class="form-row">
+        <div>
+          <label>Contraseña</label>
+          <input type="password" [(ngModel)]="tutor.password" name="password" placeholder="********" required>
+        </div>
+
+        <div>
+          <label>Grado y Grupo</label>
+          <input type="text" [(ngModel)]="tutor.gradogrupo" name="gradogrupo" placeholder="Ej. 1A, 3B" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label>ID tarjeta (NFC)</label>
+          <input type="text" [(ngModel)]="tutor.nfc_uid" name="nfc_uid" placeholder="ID Tarjeta">
+        </div>
+      </div>
+
+      <input type="hidden" [(ngModel)]="tutor.rol" name="rol" value="tutor">
+
+      <button class="btn-submit">Registrar Tutor</button>
+
     </form>
+
   </div>
 
 </div>

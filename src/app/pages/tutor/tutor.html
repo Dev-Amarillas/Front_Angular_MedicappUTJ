@@ -1,0 +1,91 @@
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="logo-area">
+    <img 
+      src="https://www.utj.edu.mx/wp-content/uploads/2022/01/Logo-UTJ-Verde.png" 
+      alt="Logo UTJ"
+      class="utj-logo"
+    >
+  </div>
+
+  <nav class="nav">
+    <a routerLink="/login" class="nav-link">Cerrar sesión</a>
+  </nav>
+</header>
+
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="title">Panel del Tutor</h1>
+
+    <p class="text">
+      Aquí podrás consultar la información pública del área médica 
+      y revisar los documentos que el estudiante ha enviado.
+    </p>
+
+    <p class="text">Brinda un mejor acompañamiento al alumno.</p>
+  </div>
+
+  <div class="hero-image">
+    <img src="icono_profe.png" class="illustration" alt="Tutor">
+  </div>
+</section>
+
+
+<!-- ===== CONTENIDO MÉDICO ===== -->
+<section class="features">
+  <h2 class="section-title">Información Médica Pública</h2>
+
+  <div class="feature-card central">
+    <p class="feature-text">{{ contenido.texto }}</p>
+  </div>
+
+  <!-- IMÁGENES -->
+  <h3 class="section-subtitle">Imágenes</h3>
+  <div class="features-grid">
+    <div class="feature-card" *ngFor="let img of contenido.imagenes">
+      <img [src]="img.src" class="img-card">
+      <h3 class="feature-title">{{ img.title }}</h3>
+      <p class="feature-text">{{ img.caption }}</p>
+    </div>
+  </div>
+
+  <!-- VIDEOS -->
+  <h3 class="section-subtitle">Videos</h3>
+  <div class="features-grid">
+    <div class="feature-card" *ngFor="let vid of contenido.videos">
+      <iframe 
+        class="video-frame"
+        [src]="vid.embed"
+        allowfullscreen>
+      </iframe>
+      <h3 class="feature-title">{{ vid.title }}</h3>
+      <p class="feature-text">{{ vid.caption }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DOCUMENTOS ===== -->
+<section class="features">
+  <h2 class="section-title">Justificantes y Documentos</h2>
+
+  <div class="features-grid">
+    <div class="feature-card doc-card" *ngFor="let doc of documentos" (click)="abrirDocumento(doc)">
+      <img 
+        src="https://cdn-icons-png.flaticon.com/512/337/337946.png"
+        class="doc-icon"
+      >
+      <h3 class="feature-title">{{ doc.nombre }}</h3>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer-info">
+  Panel del Tutor – UTJ | Gestión Médica Institucional  
+  <br>
+  <a href="https://www.utj.edu.mx">www.utj.edu.mx</a>
+</footer>
+ 

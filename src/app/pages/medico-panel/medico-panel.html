@@ -1,0 +1,132 @@
+<header class="header">
+  <div class="logo-area">
+    <img src="https://www.utj.edu.mx/wp-content/uploads/2022/01/Logo-UTJ-Verde.png" alt="Logo UTJ" class="utj-logo">
+  </div>
+
+  <nav class="nav">
+    <a routerLink="/login" class="nav-link">Cerrar sesión</a>
+  </nav>
+</header>
+
+<main class="panel-container">
+  <h1 class="panel-title">Panel de Edición del Médico</h1>
+
+  <!-- TEXTO PÚBLICO -->
+  <section class="card">
+    <h3>Editar texto público</h3>
+    <textarea [(ngModel)]="textoPublico" rows="4" placeholder="Escribe el texto público..."></textarea>
+  </section>
+
+  <!-- IMÁGENES -->
+  <section class="card">
+    <h3>Administrar Imágenes</h3>
+
+    <!-- Form para agregar imagen -->
+    <div class="row form-row">
+      <div class="col">
+        <label>Título</label>
+        <input class="form-input" [(ngModel)]="nuevaImagenTitle" placeholder="Título de la imagen">
+      </div>
+      <div class="col">
+        <label>Descripción</label>
+        <input class="form-input" [(ngModel)]="nuevaImagenCaption" placeholder="Texto breve">
+      </div>
+      <div class="col-file">
+        <label>Seleccionar archivo</label>
+        <input id="input-nueva-imagen" type="file" accept="image/*" (change)="onImageFileChange($event)">
+        <img id="preview-nueva-imagen" class="thumb-preview" alt="Previsualización" />
+      </div>
+      <div class="col-actions">
+        <button (click)="agregarImagen()" class="btn">Agregar imagen</button>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Lista editable de imágenes -->
+    <div class="grid-cards">
+      <div class="media-card" *ngFor="let img of imagenes">
+        <img [src]="img.src" alt="imagen" class="card-img" />
+        <input class="card-title" [(ngModel)]="img.title" (ngModelChange)="editarImagenCampo(img.id,'title',$event)">
+        <textarea class="card-caption" [(ngModel)]="img.caption" (ngModelChange)="editarImagenCampo(img.id,'caption',$event)"></textarea>
+        <div class="card-actions">
+          <button class="btn small" (click)="eliminarImagen(img.id)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEOS -->
+  <section class="card">
+    <h3>Administrar Videos (YouTube)</h3>
+
+    <div class="row form-row">
+      <div class="col">
+        <label>URL YouTube</label>
+        <input class="form-input" [(ngModel)]="nuevoVideoUrl" placeholder="https://www.youtube.com/watch?v=..." />
+      </div>
+      <div class="col">
+        <label>Título</label>
+        <input class="form-input" [(ngModel)]="nuevoVideoTitle" placeholder="Título del video" />
+      </div>
+      <div class="col">
+        <label>Descripción</label>
+        <input class="form-input" [(ngModel)]="nuevoVideoCaption" placeholder="Texto breve" />
+      </div>
+      <div class="col-actions">
+        <button class="btn" (click)="agregarVideo()">Agregar video</button>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="grid-cards">
+      <div class="media-card" *ngFor="let vid of videos">
+        <div class="video-wrap">
+          <!-- mostramos el iframe si ya tenemos embed -->
+          <iframe *ngIf="vid.embed" [src]="vid.embed" frameborder="0" allowfullscreen></iframe>
+          <!-- si no, intentamos mostrar mini preview por link (no embebible) -->
+          <div *ngIf="!vid.embed" class="video-placeholder">Previsualización no disponible</div>
+        </div>
+
+        <input class="card-title" [(ngModel)]="vid.title" (ngModelChange)="editarVideoCampo(vid.id,'title',$event)">
+        <textarea class="card-caption" [(ngModel)]="vid.caption" (ngModelChange)="editarVideoCampo(vid.id,'caption',$event)"></textarea>
+
+        <div class="card-actions">
+          <button class="btn small" (click)="eliminarVideo(vid.id)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISTA PREVIA -->
+  <section class="card preview">
+    <h2>Vista previa (lo que verán los demás)</h2>
+
+    <div class="preview-text">
+      <p [innerText]="textoPublico"></p>
+    </div>
+
+    <h4>Imágenes</h4>
+    <div class="preview-grid">
+      <div class="preview-item" *ngFor="let img of imagenes">
+        <img [src]="img.src" alt="img" />
+        <h5>{{ img.title }}</h5>
+        <p>{{ img.caption }}</p>
+      </div>
+    </div>
+
+    <h4>Videos</h4>
+    <div class="preview-grid">
+      <div class="preview-item" *ngFor="let v of videos">
+        <iframe *ngIf="v.embed" [src]="v.embed" frameborder="0" allowfullscreen width="320" height="200"></iframe>
+        <h5>{{ v.title }}</h5>
+        <p>{{ v.caption }}</p>
+      </div>
+    </div>
+  </section>
+  <button class="btn-guardar" (click)="guardarCambios()">
+  Guardar cambios
+</button>
+
+</main>
