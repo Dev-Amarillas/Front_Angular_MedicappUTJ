@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-login',
@@ -10,45 +11,28 @@ import { Router, RouterLink } from '@angular/router';
   styleUrls: ['./login.css']
 })
 export class LoginComponent {
-  usuario = '';
+  email = '';       
   password = '';
   error = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   login() {
-  // SUPERADMIN
-  if (this.usuario === 'superadmin' && this.password === '1234') {
-    localStorage.setItem('user', 'superadmin');
-    this.router.navigate(['/superadmin']);
-    return;
+    this.error = '';
+
+    this.authService.login(this.email, this.password).subscribe({
+      next: () => {
+        const rol = localStorage.getItem('rol');
+
+        if (rol === 'superadmin') this.router.navigate(['/superadmin']);
+        else if (rol === 'alumno') this.router.navigate(['/alumno']);
+        else if (rol === 'tutor') this.router.navigate(['/tutor']);
+        else if (rol === 'medico') this.router.navigate(['/medico']);
+        else this.error = 'Rol no reconocido';
+      },
+      error: (err) => {
+        this.error = err.error?.message || 'Credenciales incorrectas';
+      }
+    });
   }
-
-  // ALUMNOS
-  const alumnoRegex = /^[0-9]{6,12}@soy\.utj\.edu\.mx$/;
-  if (alumnoRegex.test(this.usuario) && this.password === 'alumno123') {
-    localStorage.setItem('user', 'alumno');
-    this.router.navigate(['/alumno']);
-    return;
-  }
-
-  // TUTOR
-  const tutorRegex = /^TUT-[0-9]{3}$/;
-  if (tutorRegex.test(this.usuario) && this.password === 'tutor123') {
-    localStorage.setItem('user', 'tutor');
-    this.router.navigate(['/tutor']);
-    return;
-  }
-
-  // MEDICO
-  const medicoRegex = /^MED-[0-9]{3}$/;
-  if (medicoRegex.test(this.usuario) && this.password === 'medico123') {
-    localStorage.setItem('user', 'medico');
-    this.router.navigate(['/medico']);
-    return;
-  }
-
-  this.error = 'Usuario o contraseña incorrectos';
-}
-
 }

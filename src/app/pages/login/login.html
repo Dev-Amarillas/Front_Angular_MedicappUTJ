@@ -23,16 +23,16 @@
 
     <form (ngSubmit)="login()">
 
-      <!-- Usuario -->
+      <!-- Correo -->
       <div class="form-group">
-        <label for="usuario">Usuario</label>
+        <label for="email">Correo</label>
         <input
-          id="usuario"
+          id="email"
           type="text"
           class="form-control"
-          placeholder="Ejemplo: Admin"
-          [(ngModel)]="usuario"
-          name="usuario"
+          placeholder="Ejemplo: Admin@soy.utj.edu.mx"
+          [(ngModel)]="email"
+          name="email"
           required
         >
       </div>

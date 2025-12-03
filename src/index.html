@@ -12,12 +12,12 @@
  // document.addEventListener('contextmenu', event => event.preventDefault());
 
   // Si el usuario intenta regresar con el botón "atrás"
- // window.addEventListener('popstate', function () {
-    //if (!localStorage.getItem('user, medico, tutor, alumno')) {
-    //  location.href = '/login';
-   // }
-  //});
-//</script>
+  window.addEventListener('popstate', function () {
+    if (!localStorage.getItem('user, medico, tutor, alumno')) {
+      location.href = '/login';
+    }
+  });
+</script>
 
 <body>
   <app-root></app-root>
