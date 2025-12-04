@@ -54,7 +54,7 @@
   <h3 class="section-title" style="font-size: 26px; margin-top: 40px;">Imágenes</h3>
   <div class="features-grid">
     <div class="feature-card" *ngFor="let img of contenido.imagenes">
-      <img [src]="img.src" alt="imagen médico" style="width: 100%; border-radius: 10px;">
+      <img [src]="img.src" alt="imagen médico" class="card-img">
       <h3 class="feature-title" style="margin-top: 10px;">{{ img.title }}</h3>
       <p class="feature-text">{{ img.caption }}</p>
     </div>
@@ -82,7 +82,7 @@
 <section class="features" style="margin-top: 40px;">
   <h2 class="section-title">Información del Alumno</h2>
 
-  <div class="features-grid">
+  <div class="features-grid"> 
 
     <div class="feature-card">
       <h3 class="feature-title">Nombre completo</h3>

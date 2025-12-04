@@ -1,6 +1,16 @@
-<nav class="volver">
-  <a routerLink="/tutor"> Volver</a>
+<header class="header">
+  <div class="logo-area">
+    <img
+      src="https://www.utj.edu.mx/wp-content/uploads/2022/01/Logo-UTJ-Verde.png"
+      alt="Logo UTJ"
+      class="utj-logo"
+    />
+  </div>
+
+  <nav class="nav">
+  <a routerLink="/tutor" class="nav-link"> Volver</a>  
 </nav>
+</header>  
 
 <h2 class="titulo-seccion">Publicaciones del Área Médica</h2>
 
@@ -13,7 +23,7 @@
 <div *ngIf="!cargando && publicaciones.length === 0" class="sin-publicaciones">
   No hay publicaciones disponibles.
 </div>
-   
+  
 <!-- LISTADO -->
 <div 
   class="publicacion-card" 

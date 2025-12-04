@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { MedicoService } from '../../services/editarContenido';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
+import { TutorPublicacionesService } from '../../services/tutor';
 
 @Component({
   selector: 'app-alumno',
@@ -14,21 +14,20 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class Alumno implements OnInit {
 
   constructor(
-    private servicio: MedicoService,
+    private publicacionesService: TutorPublicacionesService,
     private sanitizer: DomSanitizer
   ) {}
 
   alumno = {
-    nombre: 'Nombre del Alumno',
-    matricula: '000000000',
-    carrera: 'Carrera del Alumno',
-    correo: 'correo@utj.edu.mx',
+    nombre: '',
+    matricula: '',
+    carrera: '',
+    correo: '',
     estadoMedico: ''
   };
 
   documentos: any[] = [];
 
-  // === Contenido público proveniente del médico ===
   contenido: any = {
     texto: '',
     imagenes: [],
@@ -40,39 +39,44 @@ export class Alumno implements OnInit {
   }
 
   cargarContenidoPublico() {
-  this.servicio.obtenerContenido().subscribe({
-    next: (res: any) => {
+    this.publicacionesService.obtenerTodas().subscribe({
+      next: (res) => {
 
-      const data = res.datos;
+        if (!res.datos || res.datos.length === 0) {
+          console.warn("No hay publicaciones públicas.");
+          return;
+        }
 
-      // Convertir videos (crear embed a partir del URL)
-      const videosConvertidos = data.videos.map((v: any) => {
-        const id = this.extraerVideoId(v.url);
-        return {
-          ...v,
-          embed: this.sanitizer.bypassSecurityTrustResourceUrl(
-            `https://www.youtube.com/embed/${id}`
-          )
+        // Tomamos la más nueva o la primera
+        const publicacion = res.datos[0];
+
+        const videosConvertidos = publicacion.videos.map((v: any) => {
+          const id = this.extraerVideoId(v.url);
+          return {
+            ...v,
+            embed: this.sanitizer.bypassSecurityTrustResourceUrl(
+              `https://www.youtube.com/embed/${id}`
+            )
+          };
+        });
+
+        this.contenido = {
+          texto: publicacion.texto || "",
+          imagenes: publicacion.imagenes || [],
+          videos: videosConvertidos
         };
-      });
 
-      this.contenido = {
-        texto: data.texto || "",
-        imagenes: data.imagenes || [],
-        videos: videosConvertidos
-      };
-
-    },
-    error: (err) => {
-      console.error("Error cargando contenido:", err);
-    }
-  });
-}
-extraerVideoId(url: string): string {
-  const match = url.match(/(?:v=|youtu\.be\/)([^&?/]+)/);
-  return match ? match[1] : "";
-}
-
+      },
+      error: (err) => {
+        console.error("Error cargando publicaciones:", err);
+      }
+    });
+  }
+ 
+  extraerVideoId(url: string): string {
+    const match = url.match(/(?:v=|youtu\.be\/)([^&?/]+)/);
+    return match ? match[1] : "";
+  }
 
   subirDocumento() {
     alert("Funcionalidad pendiente");

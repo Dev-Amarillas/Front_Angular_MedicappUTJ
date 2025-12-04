@@ -29,6 +29,12 @@ interface DocumentoData {
   nombre: string;
   url: string;
 }
+interface Usuario {
+  nombre: string;
+  ap_paterno: string;
+  ap_materno: string;
+}
+
 
 @Component({
   selector: 'app-tutor',
@@ -50,6 +56,12 @@ export class TutorComponent implements OnInit {
   };
 
   documentos: DocumentoData[] = [];
+  usuario: Usuario = {
+  nombre: '',
+  ap_paterno: '',
+  ap_materno: ''
+};
+
 
   readonly baseApi = 'http://localhost:3000';
   readonly api = this.baseApi + '/api';
@@ -57,6 +69,11 @@ export class TutorComponent implements OnInit {
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
+    // Cargar usuario logueado
+  const data = localStorage.getItem('usuario');
+  if (data) {
+    this.usuario = JSON.parse(data);
+  }
     this.obtenerPublicacionActual();
     this.obtenerDocumentos();
   }

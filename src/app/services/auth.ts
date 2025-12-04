@@ -21,6 +21,9 @@ export class AuthService {
           // Guardar token
           localStorage.setItem('token', token);
 
+          // Guardar usuario completo
+        localStorage.setItem('usuario', JSON.stringify(resp.data.usuario));
+
           // Decodificar el rol
           const payload = JSON.parse(atob(token.split('.')[1]));
           localStorage.setItem('rol', payload.rol);

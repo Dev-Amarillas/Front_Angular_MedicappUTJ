@@ -1,11 +1,28 @@
 /* ======= ESTILOS GENERALES ======= */
 
-.volver a {
-  text-decoration: none;
-  color: #1565c0;
+.header {
+  margin-top: 0 !important;
+  width: 100vw !important;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  background: linear-gradient(90deg, #9de5f0, #004d99);
+  color: #fff;
+  padding: 12px 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-weight: 600;
-  font-size: 15px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
+.logo-area { display:flex; align-items:center; gap:30px; }
+.utj-logo { width:200px; height:auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15)); }
+.nav { display:flex; gap:20px; }
+.nav-link { color:#fff; text-decoration:none; padding:8px 12px; border-radius:8px; transition:.2s; }
+.nav-link:hover { background: rgba(255,255,255,0.14); transform: translateY(-2px); }
+
 
 .titulo-seccion {
   margin: 20px 0;

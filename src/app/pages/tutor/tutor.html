@@ -9,21 +9,25 @@
   </div>
 
   <nav class="nav">
+    <a routerLink="/tutor/publicaciones" class="nav-link">Publicaciones Médicas</a>
     <a routerLink="/login" class="nav-link">Cerrar sesión</a>
-    <a routerLink="/tutor/publicaciones" class="nav-link">
-    Publicaciones
-  </a>
-  </nav>
+  </nav> 
 </header>
 
 <!-- === HERO === -->
 <section class="hero">
   <div class="hero-content">
-    <h1 class="title">Panel del Tutor</h1>
-    <p class="text">
-      Consulta la información pública generada por el área médica y los documentos enviados por los estudiantes.
-    </p>
-  </div>
+  <h1 class="title">Bienvenido Tutor 
+    <span style="font-weight: 600;">
+      {{ usuario.nombre }} {{ usuario.ap_paterno }} {{ usuario.ap_materno }}
+    </span>
+  </h1> 
+
+  <p class="text">
+    Consulta la información pública generada por el área médica y los documentos enviados por los estudiantes.
+  </p>
+</div>
+
 
   <div class="hero-image">
     <img src="icono_profe.png" class="illustration" alt="Tutor">
