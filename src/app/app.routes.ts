@@ -22,6 +22,7 @@ import { MedicoGuard } from './guards/medico-guard';
 import { Alumno } from './pages/alumno/alumno'; 
 import { MedicoPanelComponent } from './pages/medico-panel/medico-panel';
 import { TutorComponent } from './pages/tutor/tutor';
+import { PublicacionesComponent } from './pages/tutor/publicaciones/publicaciones';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -45,6 +46,9 @@ export const routes: Routes = [
    { path: 'medico', component: MedicoPanelComponent, canActivate: [authGuard, MedicoGuard] },
     // ===== TUTOR =====
   { path: 'tutor', component: TutorComponent, canActivate: [authGuard, TutorGuard] },
+  { path: 'tutor/publicaciones', component: PublicacionesComponent},
+
+
 
   // Ruta por defecto si no existe
   { path: '**', redirectTo: '' }

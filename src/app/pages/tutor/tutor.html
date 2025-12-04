@@ -1,8 +1,8 @@
-<!-- ===== HEADER ===== -->
+<!-- === HEADER === -->
 <header class="header">
   <div class="logo-area">
     <img 
-      src="https://www.utj.edu.mx/wp-content/uploads/2022/01/Logo-UTJ-Verde.png" 
+      src="https://www.utj.edu.mx/wp-content/uploads/2022/01/Logo-UTJ-Verde.png"
       alt="Logo UTJ"
       class="utj-logo"
     >
@@ -10,21 +10,19 @@
 
   <nav class="nav">
     <a routerLink="/login" class="nav-link">Cerrar sesión</a>
+    <a routerLink="/tutor/publicaciones" class="nav-link">
+    Publicaciones
+  </a>
   </nav>
 </header>
 
-
-<!-- ===== HERO ===== -->
+<!-- === HERO === -->
 <section class="hero">
   <div class="hero-content">
     <h1 class="title">Panel del Tutor</h1>
-
     <p class="text">
-      Aquí podrás consultar la información pública del área médica 
-      y revisar los documentos que el estudiante ha enviado.
+      Consulta la información pública generada por el área médica y los documentos enviados por los estudiantes.
     </p>
-
-    <p class="text">Brinda un mejor acompañamiento al alumno.</p>
   </div>
 
   <div class="hero-image">
@@ -32,85 +30,81 @@
   </div>
 </section>
 
-
-<!-- ===== CONTENIDO MÉDICO ===== -->
-<section class="features">
-
+<!-- === CONTENIDO MÉDICO === -->
+<section class="content-section">
   <h2 class="section-title">Información Médica Pública</h2>
 
-  <div class="feature-card central" *ngIf="contenido && contenido.texto">
-    <p class="feature-text">{{ contenido.texto }}</p>
-  </div>
+  
+  <!-- Texto principal -->
+  <article class="content-block" *ngIf="contenido.texto; else noTexto">
+    <p class="content-text">{{ contenido.texto }}</p>
+  </article>
+
+  <ng-template #noTexto>
+    <p class="text-muted">No se ha publicado contenido aún.</p>
+  </ng-template>
 
   <!-- IMÁGENES -->
   <h3 class="section-subtitle">Imágenes</h3>
 
-  <div class="features-grid" *ngIf="contenido.imagenes.length > 0; else sinImagenes">
-    <div class="feature-card" *ngFor="let img of contenido.imagenes">
-      <img [src]="img.url" class="img-card">
-      <h3 class="feature-title">{{ img.title }}</h3>
-      <p class="feature-text">{{ img.caption }}</p>
+  <div class="grid" *ngIf="contenido.imagenes.length; else noImgs">
+    <div class="card" *ngFor="let img of contenido.imagenes">
+      <img [src]="img.src" [alt]="img.title" class="card-img">
+      <h4 class="card-title">{{ img.title }}</h4>
+      <p class="card-desc">{{ img.caption }}</p>
     </div>
   </div>
 
-  <ng-template #sinImagenes>
-    <p class="text">No hay imágenes disponibles.</p>
+  <ng-template #noImgs>
+    <p class="text-muted">No hay imágenes disponibles.</p>
   </ng-template>
-
 
   <!-- VIDEOS -->
   <h3 class="section-subtitle">Videos</h3>
 
-  <div class="features-grid" *ngIf="contenido.videos.length > 0; else sinVideos">
-    <div class="feature-card" *ngFor="let vid of contenido.videos">
-
+  <div class="grid" *ngIf="contenido.videos.length; else noVids">
+    <div class="card" *ngFor="let vid of contenido.videos">
       <iframe 
-        *ngIf="vid.embed"
         class="video-frame"
+        *ngIf="vid.embed"
         [src]="vid.embed"
         allowfullscreen>
       </iframe>
 
-      <!-- fallback si vienen URLs normales -->
-      <a *ngIf="!vid.embed && vid.url" [href]="vid.url" target="_blank">
+      <a 
+        *ngIf="!vid.embed && vid.url"
+        [href]="vid.url" target="_blank"
+        class="video-link">
         Ver video
       </a>
 
-      <h3 class="feature-title">{{ vid.title }}</h3>
-      <p class="feature-text">{{ vid.caption }}</p>
+      <h4 class="card-title">{{ vid.title }}</h4>
+      <p class="card-desc">{{ vid.caption }}</p>
     </div>
   </div>
 
-  <ng-template #sinVideos>
-    <p class="text">No hay videos disponibles.</p>
+  <ng-template #noVids>
+    <p class="text-muted">No hay videos disponibles.</p>
   </ng-template>
-
 </section>
 
-
-
-<!-- ===== DOCUMENTOS ===== -->
-<section class="features">
+<!-- === DOCUMENTOS === -->
+<section class="content-section">
   <h2 class="section-title">Justificantes y Documentos</h2>
 
-  <div class="features-grid" *ngIf="documentos.length > 0; else sinDocs">
-    <div class="feature-card doc-card" *ngFor="let doc of documentos" (click)="abrirDocumento(doc)">
-      <img 
-        src="https://cdn-icons-png.flaticon.com/512/337/337946.png"
-        class="doc-icon"
-      >
-      <h3 class="feature-title">{{ doc.nombre }}</h3>
+  <div class="grid" *ngIf="documentos.length; else noDocs">
+    <div class="card doc-card" *ngFor="let doc of documentos" (click)="abrirDocumento(doc)">
+      <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" class="doc-icon">
+      <h4 class="card-title">{{ doc.nombre }}</h4>
     </div>
   </div>
 
-  <ng-template #sinDocs>
-    <p class="text">No hay documentos por el momento.</p>
+  <ng-template #noDocs>
+    <p class="text-muted">No hay documentos enviados.</p>
   </ng-template>
-
 </section>
 
-
-<!-- ===== FOOTER ===== -->
+<!-- === FOOTER === -->
 <footer class="footer-info">
   Panel del Tutor – UTJ | Gestión Médica Institucional  
   <br>

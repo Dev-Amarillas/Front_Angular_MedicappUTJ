@@ -1,0 +1,75 @@
+<nav class="volver">
+  <a routerLink="/tutor"> Volver</a>
+</nav>
+
+<h2 class="titulo-seccion">Publicaciones del Área Médica</h2>
+
+<!-- ESTADO DE CARGA -->
+<div *ngIf="cargando" class="estado-carga">
+  Cargando publicaciones...
+</div>
+
+<!-- SIN PUBLICACIONES -->
+<div *ngIf="!cargando && publicaciones.length === 0" class="sin-publicaciones">
+  No hay publicaciones disponibles.
+</div>
+   
+<!-- LISTADO -->
+<div 
+  class="publicacion-card" 
+  *ngFor="let p of publicaciones; trackBy: trackByPub"
+>
+
+  <!-- TEXTO PRINCIPAL -->
+  <div class="contenido-principal">
+    <h3>Publicación</h3>
+    <p class="texto-publicacion">{{ p.texto }}</p>
+    <small class="fecha">Fecha: {{ p.fecha | date:'medium' }}</small>
+  </div>
+
+  <!-- VIDEOS → arriba -->
+  <div *ngIf="p.videos.length" class="videos">
+    <h4>Videos</h4>
+
+    <div class="videos-grid">
+      <div 
+        class="video-card" 
+        *ngFor="let vid of p.videos; trackBy: trackByVideo"
+      >
+        <iframe
+          [src]="vid.url | safeUrl"
+          frameborder="0"
+          allowfullscreen>
+        </iframe>
+
+        <div class="video-info">
+          <h5>{{ vid.title }}</h5>
+          <p>{{ vid.caption }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMÁGENES → abajo -->
+  <div *ngIf="p.imagenes.length" class="imagenes">
+    <h4>Imágenes</h4>
+
+    <div class="imagenes-grid">
+      <div 
+        class="img-card" 
+        *ngFor="let img of p.imagenes; trackBy: trackByImg"
+      >
+        <img 
+          [src]="img.src" 
+          [alt]="img.title"
+        />
+
+        <div class="img-info">
+          <h5>{{ img.title }}</h5>
+          <p>{{ img.caption }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

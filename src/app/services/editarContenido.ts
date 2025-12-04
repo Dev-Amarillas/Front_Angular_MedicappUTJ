@@ -1,4 +1,3 @@
-// src/app/services/medico.service.ts (o donde lo tengas)
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -11,11 +10,12 @@ export class MedicoService {
 
   constructor(private http: HttpClient) {}
 
+  // OBTENER TODO
   obtenerContenido(): Observable<any> {
     return this.http.get(this.baseUrl);
   }
 
-  // JSON (si lo necesitas)
+  // ---------------- JSON ----------------
   editarContenido(id: string, payload: any): Observable<any> {
     return this.http.put(`${this.baseUrl}/${id}`, payload);
   }
@@ -24,7 +24,7 @@ export class MedicoService {
     return this.http.post(this.baseUrl, payload);
   }
 
-  // ---- NUEVOS: FormData ----
+  // ---------------- FormData ----------------
   crearContenidoFormData(form: FormData): Observable<any> {
     return this.http.post(this.baseUrl, form);
   }
